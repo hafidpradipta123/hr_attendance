@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>896686653393-4gbuaqn1o4uptra8eehlotc9amfdfsil.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.896686653393-4gbuaqn1o4uptra8eehlotc9amfdfsil</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC7ocuNF-IyadMYQfjkXE_tVKTfAOFvuzA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>896686653393</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.hrAttendance</string>
+	<key>PROJECT_ID</key>
+	<string>attendanceapp-30a74</string>
+	<key>STORAGE_BUCKET</key>
+	<string>attendanceapp-30a74.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:896686653393:ios:b5859bd19c8c54553e2af0</string>
+</dict>
+</plist>

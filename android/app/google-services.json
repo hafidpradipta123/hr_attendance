@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "896686653393",
+    "project_id": "attendanceapp-30a74",
+    "storage_bucket": "attendanceapp-30a74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896686653393:android:003efc49a5cd1cd83e2af0",
+        "android_client_info": {
+          "package_name": "com.example.hr_attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896686653393-cijccbpg3uc9aoun38aa7pdbmp9rnod7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcjGvYrXUPh4dfXo372SM3pB39qFqRmbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896686653393-cijccbpg3uc9aoun38aa7pdbmp9rnod7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896686653393-iv2e2br0f6nf1d856t88aiubbt2n69j2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hrExtendBubbleTea"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896686653393:android:10a3d4ad91d949213e2af0",
+        "android_client_info": {
+          "package_name": "com.example.hr_extend_bubble_tea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896686653393-cijccbpg3uc9aoun38aa7pdbmp9rnod7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcjGvYrXUPh4dfXo372SM3pB39qFqRmbc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896686653393-cijccbpg3uc9aoun38aa7pdbmp9rnod7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896686653393-iv2e2br0f6nf1d856t88aiubbt2n69j2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hrExtendBubbleTea"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
