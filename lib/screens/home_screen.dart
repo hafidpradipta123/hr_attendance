@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_attendance/model/user.dart';
 import 'package:hr_attendance/screens/calendar_screen.dart';
 import 'package:hr_attendance/screens/profile_screen.dart';
 import 'package:hr_attendance/screens/today_screen.dart';
@@ -13,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double screenHeight = 0;
   double screenWidth = 0;
+  String id = '';
 
   Color primary = const Color(0xff200b72);
   int currentIndex = 1;
@@ -22,6 +25,24 @@ class _HomeScreenState extends State<HomeScreen> {
     Icons.check,
     Icons.person
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getId();
+  }
+  
+  void getId() async{
+    QuerySnapshot snap = await FirebaseFirestore
+        .instance.collection("Employee")
+        .where('id', isEqualTo: User.employeeId)
+        .get();
+
+    setState(() {
+      User.id = snap.docs[0].id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
