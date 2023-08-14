@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:hr_attendance/screens/calendar_screen.dart';
 import 'package:hr_attendance/screens/profile_screen.dart';
 import 'package:hr_attendance/screens/today_screen.dart';
@@ -16,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double screenWidth = 0;
 
   Color primary = const Color(0xff200b72);
-  int currentIndex = 0;
+  int currentIndex = 1;
 
   List<IconData> navigationIcons = [
     Icons.calendar_today,
