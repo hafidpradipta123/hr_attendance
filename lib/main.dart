@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:hr_attendance/login_screen.dart';
+import 'package:hr_attendance/model/user.dart';
+import 'package:hr_attendance/screens/home_screen.dart';
+import 'package:hr_attendance/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future <void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -87,8 +90,48 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: KeyboardVisibilityProvider(child: LoginScreen()),
+      home: KeyboardVisibilityProvider(child: AuthCheck()),
     );
 
+  }
+}
+
+
+class AuthCheck extends StatefulWidget {
+  const AuthCheck({super.key});
+
+  @override
+  State<AuthCheck> createState() => _AuthCheckState();
+}
+
+class _AuthCheckState extends State<AuthCheck> {
+  bool userAvailable = false;
+  late SharedPreferences sharedPreferences;
+  @override
+
+  void initState() {
+
+    super.initState();
+    _getCurrentUser();
+  }
+
+  void _getCurrentUser() async{
+    sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      if(sharedPreferences.getString('employeeId')!= ""){
+        setState(() {
+          User.username = sharedPreferences.getString("employeeId")!;
+          userAvailable = true;
+        });
+      }
+    } catch(e){
+      userAvailable = false;
+
+    }
+  }
+
+
+  Widget build(BuildContext context) {
+    return userAvailable ? const HomeScreen(): const LoginScreen();
   }
 }

@@ -22,7 +22,7 @@ class CustomField extends StatelessWidget {
     return Container(
       width: screenWidth,
       margin: EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),
           boxShadow: [
@@ -36,7 +36,7 @@ class CustomField extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: screenWidth/8,
             child: Icon(
               Icons.person,
@@ -47,6 +47,7 @@ class CustomField extends StatelessWidget {
           Expanded(child: Padding(
             padding:  EdgeInsets.only(right: screenWidth/12),
             child: TextFormField(
+              controller: controller,
               enableSuggestions: false,
               autocorrect: false,
               decoration: InputDecoration(
