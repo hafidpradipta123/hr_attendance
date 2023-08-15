@@ -4,6 +4,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:hr_attendance/model/user.dart';
 import 'package:hr_attendance/screens/home_screen.dart';
 import 'package:hr_attendance/screens/login_screen.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future <void> main() async{
@@ -90,7 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: KeyboardVisibilityProvider(child: AuthCheck()),
+      home: KeyboardVisibilityProvider(child: AuthCheck(),
+      ),
+      localizationsDelegates:const [
+      MonthYearPickerLocalizations.delegate,]
     );
 
   }

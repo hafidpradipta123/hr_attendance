@@ -1,4 +1,4 @@
 class User{
-  static String id = "";
-  static String employeeId = "";
+  static String id = " ";
+  static String employeeId = " ";
 }

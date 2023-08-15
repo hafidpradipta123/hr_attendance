@@ -4,7 +4,7 @@ import 'package:hr_attendance/model/user.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_action/slide_action.dart';
 
-import '../components/today_screen_components/today_screen_checkInandOut_box.dart';
+import '../components/checkInandOut_box.dart';
 import '../components/today_screen_components/today_screen_datetime_rich_text.dart';
 import '../components/today_screen_components/today_screen_fixed_text.dart';
 import '../components/today_screen_components/today_screen_slider.dart';
@@ -77,6 +77,7 @@ class _TodayScreenState extends State<TodayScreen> {
 
               CheckInOutBox(
                   screenWidth: screenWidth, checkIn: checkIn, checkOut: checkOut),
+              const SizedBox(height: 32,),
               StreamBuilder<Object>(
                   stream: Stream.periodic(const Duration(seconds: 1),
                       (count) => Duration(seconds: count)),
@@ -147,6 +148,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                   DateFormat('hh:mm').format(DateTime.now());
                             });
                             recordDocRef.update({
+                              'date': Timestamp.now(),
                               'checkIn': checkIn,
                               'checkOut':
                                   DateFormat('hh:mm').format(DateTime.now())
@@ -157,6 +159,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                   DateFormat('hh:mm').format(DateTime.now());
                             });
                             recordDocRef.set({
+                              'date': Timestamp.now(),
                               'checkIn':
                                   DateFormat('hh:mm').format(DateTime.now()),
                               'checkOut': "--/--"

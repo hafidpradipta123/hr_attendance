@@ -16,7 +16,7 @@ class CheckInOutBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20, bottom: 32),
+      margin: EdgeInsets.only(top: 20),
       height: 150,
       decoration: const BoxDecoration(
           color: Colors.white,
