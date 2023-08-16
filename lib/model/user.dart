@@ -4,6 +4,7 @@ class User{
   static String firstName = " ";
   static String lastName = " ";
   static String birthDate = " ";
+  static String profilePicLink = " ";
   static String address = " ";
   static double lat = 0;
   static double long = 0;

@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_attendance/screens/profile_screen_field.dart';
 import 'package:hr_attendance/screens/profile_screen_text_field.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../model/user.dart';
@@ -22,28 +28,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController lastNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
+  void pickUploadProfilePic() async {
+    final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 512,
+        maxWidth: 512,
+        imageQuality: 90);
+
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child("${User.employeeId.toLowerCase()}_profilepic.jpg");
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) async {
+      setState(() {
+        User.profilePicLink = value;
+
+      });
+
+
+    await FirebaseFirestore.instance.collection("Employee").doc(User.id).update(
+        {
+          'profilePic': value,
+        });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: SafeArea(
           child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 80, bottom: 24),
-                height: 120,
-                width: 120,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20), color: primary),
-                child: Center(
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 80,
+              GestureDetector(
+                onTap:(){
+                 // pickUploadProfilePic();
+                  } ,
+                // TODO Unhandled Exception: PlatformException(channel-error, Unable to establish connection on channel., null, null)
+                child: Container(
+                  margin: const EdgeInsets.only(top: 80, bottom: 24),
+                  height: 120,
+                  width: 120,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20), color: primary),
+                  child: Center(
+                    child: User.profilePicLink == " " ? const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: 80,
+                    ) : ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(User.profilePicLink)),
                   ),
                 ),
               ),
@@ -51,30 +90,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 alignment: Alignment.center,
                 child: Text(
                   "Employee ${User.employeeId}",
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
               const SizedBox(
                 height: 24,
               ),
-              ProfileTextField(
+              User.canEdit? ProfileTextField(
                 label: "First Name",
                 title: "First Name",
                 controller: firstNameController,
-              ),
-              ProfileTextField(
+              )  :ProfileScreenField(screenWidth: screenWidth, title: "First Name", label: User.firstName,) ,
+              User.canEdit? ProfileTextField(
                 label: "Last Name",
                 title: "Last Name",
                 controller: lastNameController,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Date of Birth",
-                  style: const TextStyle(color: Colors.black87),
-                ),
-              ),
-              GestureDetector(
+              ):ProfileScreenField(screenWidth: screenWidth, title: "Last Name", label:User.lastName ,),
+
+              User.canEdit? GestureDetector(
                 onTap: () {
                   showDatePicker(
                       context: context,
@@ -99,40 +132,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     });
                   });
                 },
-                child: Container(
-                  height: kToolbarHeight,
-                  width: screenWidth,
-                  margin: EdgeInsets.only(bottom: 12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.black54)),
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10),
-                    margin: EdgeInsets.only(bottom: 8),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        birth,
-                        style: const TextStyle(
-                            color: Colors.black54, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              ProfileTextField(
+                child: ProfileScreenField(screenWidth: screenWidth,title: "Date of Birth", label: birth),
+              ) :ProfileScreenField(screenWidth: screenWidth,title: "Date of Birth", label: User.birthDate) ,
+             User.canEdit?  ProfileTextField(
                 label: "Address",
                 title: "Address",
                 controller: addressController,
-              ),
-              GestureDetector(
+              ) :ProfileScreenField(screenWidth: screenWidth, title: "Address", label: User.address,) ,
+             User.canEdit? GestureDetector(
                 onTap: () async {
                   String firstName = firstNameController.text;
                   String lastName = lastNameController.text;
                   String address = addressController.text;
-                  String birthdate = birth;
+                  String birthDate = birth;
 
-                  if(User.canEdit){
+                  if (User.canEdit) {
                     if (firstName.isEmpty) {
                       showSnackBar("Please enter your first name!");
                     } else if (lastName.isEmpty) {
@@ -142,41 +156,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     } else if (address.isEmpty) {
                       showSnackBar("Please enter your address!");
                     } else {
-                      await FirebaseFirestore.instance.collection("Employee").doc(User.id)
+                      await FirebaseFirestore.instance
+                          .collection("Employee")
+                          .doc(User.id)
                           .update({
                         'firstName': firstName,
-                        'lastName' : lastName,
-                        'birthDate': birthdate,
-                        'address' : address,
-                        'canEdit' : false
-                          });
-
+                        'lastName': lastName,
+                        'birthDate': birthDate,
+                        'address': address,
+                        'canEdit': false
+                      }).then((value) {
+                        setState(() {
+                          User.canEdit = false;
+                          User.firstName = firstName;
+                          User.lastName = lastName;
+                          User.birthDate = birthDate;
+                          User.address = address;
+                        });
+                      });
                     }
                   } else {
-                    showSnackBar("You can not edit anymore. Please support the contact team.");
+                    showSnackBar(
+                        "You can not edit anymore. Please support the contact team.");
                   }
-
-
                 },
                 child: Container(
                   height: kToolbarHeight,
                   width: screenWidth,
-                  margin: EdgeInsets.only(bottom: 12),
+                  margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: primary,
                       border: Border.all(color: Colors.black54)),
-                  child: Container(
-                    child: Center(
-                      child: Text(
-                        "SAVE",
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+                  child: const Center(
+                    child: Text(
+                      "SAVE",
+                      style:
+                          TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
-              ),
+              ) : const SizedBox(),
             ],
           ),
         ),
@@ -193,3 +213,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

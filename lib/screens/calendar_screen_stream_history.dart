@@ -22,7 +22,7 @@ class CalendarScreenStreamHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: screenHeight - screenHeight / 3.1,
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -60,7 +60,7 @@ class CalendarScreenStreamHistory extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: primary,
-                                borderRadius: BorderRadius.all(Radius.circular(20),),
+                                borderRadius: const BorderRadius.all(Radius.circular(20),),
                               ),
                               child: Center(
                                 child: Text(

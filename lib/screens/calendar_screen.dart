@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:hr_attendance/screens/today_screen_checkInandOut_box.dart';
-import 'package:intl/intl.dart';
-import 'package:month_year_picker/month_year_picker.dart';
 
-import '../model/user.dart';
+import 'package:flutter/material.dart';
+
+import 'package:intl/intl.dart';
+
+
+
 import 'calendar_screen_month_display.dart';
 import 'calendar_screen_stream_history.dart';
 
@@ -27,7 +27,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SafeArea(
           child: Column(
             children: [

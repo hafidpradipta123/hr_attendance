@@ -31,28 +31,62 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getId();
+    // _startLocationService();
+
+    getId().then((value){
+      _getCredentials();
+     // _getProfilePic();
+    });
+
   }
 
-  void _startLocationService() async{
+  void _getCredentials() async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection("Employee")
+        .doc(User.id)
+        .get();
+    try {
+      setState(() {
+        User.canEdit = doc['canEdit'];
+        User.firstName = doc['firstName'];
+        User.lastName = doc['lastName'];
+        User.birthDate = doc['birthDate'];
+        User.address = doc['address'];
+      });
+    } catch (e) {
+      return;
+    }
+  }
+
+  void _getProfilePic() async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection("Employee")
+        .doc(User.id)
+        .get();
+    setState(() {
+      User.profilePicLink = doc['profilePic'];
+    });
+  }
+
+  void _startLocationService() async {
     LocationService().initialize();
 
-    LocationService().getLongitude().then((value){
+    LocationService().getLongitude().then((value) {
       setState(() {
-        User.long= value!;
+        User.long = value!;
       });
     });
 
-    LocationService().getLatitude().then((value){
+    LocationService().getLatitude().then((value) {
       setState(() {
-        User.long= value!;
+        User.long = value!;
       });
     });
   }
-  
-  void getId() async{
-    QuerySnapshot snap = await FirebaseFirestore
-        .instance.collection("Employee")
+
+  Future <void> getId() async {
+    QuerySnapshot snap = await FirebaseFirestore.instance
+        .collection("Employee")
         .where('id', isEqualTo: User.employeeId)
         .get();
 
@@ -68,16 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [
-          new CalendarScreen(),
-          new TodayScreen(),
-          new ProfileScreen()
-
-        ],
+        children: const [CalendarScreen(), TodayScreen(), ProfileScreen()],
       ),
       bottomNavigationBar: Container(
         height: 70,
-        margin: EdgeInsets.only(left: 12, right: 12, bottom: 24),
+        margin: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(40)),
@@ -89,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ]),
         child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(40)),
+          borderRadius: const BorderRadius.all(Radius.circular(40)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -114,11 +143,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(
                               navigationIcons[i],
                               size: i == currentIndex ? 40 : 30,
-                              color: i == currentIndex ? primary : Colors.black26,
+                              color:
+                                  i == currentIndex ? primary : Colors.black26,
                             ),
                             i == currentIndex
                                 ? Container(
-                                    margin: EdgeInsets.only(top: 6),
+                                    margin: const EdgeInsets.only(top: 6),
                                     height: 3,
                                     width: 22,
                                     decoration: BoxDecoration(

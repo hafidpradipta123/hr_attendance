@@ -230,7 +230,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                   'checkOut': "--/--",
                                   'checkOutLocation': location,
                                 });
-                              }
+                               }
                             });
 
                           }
