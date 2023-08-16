@@ -21,7 +21,7 @@ class CustomField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: screenWidth,
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(12)),

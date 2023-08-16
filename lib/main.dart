@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: KeyboardVisibilityProvider(child: AuthCheck(),
+      home: const KeyboardVisibilityProvider(child: AuthCheck(),
       ),
       localizationsDelegates:const [
       MonthYearPickerLocalizations.delegate,]

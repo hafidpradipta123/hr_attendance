@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:hr_attendance/components/custom_field.dart';
-import 'package:hr_attendance/components/field_text.dart';
+import 'package:hr_attendance/screens/login_screen_custom_field.dart';
+import 'package:hr_attendance/screens/login_screen_field_text.dart';
 import 'package:hr_attendance/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login_screen_login_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -146,24 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ));
                     }
                   },
-                  child: Container(
-                    height: 60,
-                    margin: EdgeInsets.only(top: screenHeight / 40),
-                    width: screenWidth,
-                    decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25))),
-                    child: Center(
-                      child: Text(
-                        "LOGIN",
-                        style: TextStyle(
-                            fontSize: screenWidth / 26,
-                            color: Colors.white,
-                            letterSpacing: 2),
-                      ),
-                    ),
-                  ),
+                  child: LoginButton(screenHeight: screenHeight, screenWidth: screenWidth, primary: primary),
                 )
               ],
             ),
@@ -173,3 +158,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

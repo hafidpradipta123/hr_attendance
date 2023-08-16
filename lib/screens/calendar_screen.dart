@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_attendance/components/checkInandOut_box.dart';
+import 'package:hr_attendance/screens/today_screen_checkInandOut_box.dart';
 import 'package:intl/intl.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 
 import '../model/user.dart';
+import 'calendar_screen_month_display.dart';
+import 'calendar_screen_stream_history.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
@@ -39,14 +41,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ),
               Stack(
                 children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.only(top: 32),
-                    child: Text(
-                     _month,
-                      style: TextStyle(fontSize: screenWidth / 18),
-                    ),
-                  ),
+                  MonthDisplay(month: _month, screenWidth: screenWidth),
                   Container(
                     alignment: Alignment.centerRight,
                     margin: const EdgeInsets.only(top: 32),
@@ -95,111 +90,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ],
               ),
               const SizedBox(height: 12,),
-              Container(
-                height: screenHeight - screenHeight / 3.1,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection("Employee")
-                      .doc(User.id)
-                      .collection("Record")
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasData) {
-                      final snap = snapshot.data!.docs;
-                      return ListView.builder(
-                          itemCount: snap.length,
-                          itemBuilder: (context, index) {
-                            return
-                              DateFormat('MMMM').format( snap[index]['date'].toDate()) == _month ?
-                              Container(
-                              margin:  EdgeInsets.only(top: index > 0 ? 12  : 0, left: 6, right: 6),
-                              height: 150,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 10,
-                                        offset: Offset(2, 2))
-                                  ],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: primary,
-                                        borderRadius: BorderRadius.all(Radius.circular(20),),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                        DateFormat('EE dd').format( snap[index]['date'].toDate()),
-                                          style: TextStyle(
-                                              fontSize: screenWidth/20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Check In",
-                                          style: TextStyle(
-                                              fontSize: screenWidth / 20,
-                                              color: Colors.black54),
-                                        ),
-                                        Text(
-                                          snap[index]['checkIn'],
-                                          style: TextStyle(
-                                              fontSize: screenWidth / 18,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Check Out",
-                                          style: TextStyle(
-                                              fontSize: screenWidth / 20,
-                                              color: Colors.black54),
-                                        ),
-                                        Text(
-                                          snap[index]['checkOut'],
-                                          style: TextStyle(
-                                              fontSize: screenWidth / 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ): const  SizedBox();
-                          });
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                ),
-              ),
+              CalendarScreenStreamHistory(screenHeight: screenHeight, month: _month, primary: primary, screenWidth: screenWidth),
             ],
           ),
         ),

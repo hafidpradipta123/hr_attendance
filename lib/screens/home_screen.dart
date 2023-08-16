@@ -4,6 +4,7 @@ import 'package:hr_attendance/model/user.dart';
 import 'package:hr_attendance/screens/calendar_screen.dart';
 import 'package:hr_attendance/screens/profile_screen.dart';
 import 'package:hr_attendance/screens/today_screen.dart';
+import 'package:hr_attendance/services/location_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +32,22 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     getId();
+  }
+
+  void _startLocationService() async{
+    LocationService().initialize();
+
+    LocationService().getLongitude().then((value){
+      setState(() {
+        User.long= value!;
+      });
+    });
+
+    LocationService().getLatitude().then((value){
+      setState(() {
+        User.long= value!;
+      });
+    });
   }
   
   void getId() async{
