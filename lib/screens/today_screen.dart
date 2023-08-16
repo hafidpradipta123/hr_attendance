@@ -68,8 +68,7 @@ class _TodayScreenState extends State<TodayScreen> {
         String checkOut = "--/--";
       });
     }
-    print(checkIn);
-    print(checkOut);
+
   }
 
   @override

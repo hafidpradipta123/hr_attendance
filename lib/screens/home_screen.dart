@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String id = '';
 
   Color primary = const Color(0xff200b72);
-  int currentIndex = 0;
+  int currentIndex = 2;
 
   List<IconData> navigationIcons = [
     Icons.calendar_today,
