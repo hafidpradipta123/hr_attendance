@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_attendance/model/user.dart';
-import 'package:hr_attendance/screens/calendar_screen.dart';
-import 'package:hr_attendance/screens/profile_screen.dart';
-import 'package:hr_attendance/screens/today_screen.dart';
+import 'package:hr_attendance/screens/calendar_screen/calendar_screen.dart';
+import 'package:hr_attendance/screens/profile_screen/profile_screen.dart';
+import 'package:hr_attendance/screens/today_screen/today_screen.dart';
 import 'package:hr_attendance/services/location_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -102,7 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: const [CalendarScreen(), TodayScreen(), ProfileScreen()],
+        children: const [
+          CalendarScreen(),
+          TodayScreen(),
+          ProfileScreen()],
       ),
       bottomNavigationBar: Container(
         height: 70,

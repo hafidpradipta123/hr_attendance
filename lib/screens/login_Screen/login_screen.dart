@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:hr_attendance/screens/login_screen_custom_field.dart';
-import 'package:hr_attendance/screens/login_screen_field_text.dart';
+
+import 'package:hr_attendance/screens/login_Screen/login_screen_field_text.dart';
 import 'package:hr_attendance/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'login_screen_custom_field.dart';
 import 'login_screen_login_button.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -119,8 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         sharedPreferences =
                             await SharedPreferences.getInstance();
                         sharedPreferences.setString('employeeId', id).then((_) {
-                          Navigator.pushReplacement(
-                              context,
+                          //tutorial use push replacement
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(
                                   builder: (context) => const HomeScreen()));
                         });

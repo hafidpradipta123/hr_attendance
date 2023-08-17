@@ -4,12 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_attendance/screens/profile_screen_field.dart';
-import 'package:hr_attendance/screens/profile_screen_text_field.dart';
+import 'package:hr_attendance/screens/profile_screen/profile_screen_field.dart';
+import 'package:hr_attendance/screens/profile_screen/profile_screen_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-import '../model/user.dart';
+import '../../model/user.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -197,6 +197,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ) : const SizedBox(),
+
+              GestureDetector(
+                onTap: () async {
+                //  Navigator.pop(context);
+                },
+                child: Container(
+                  height: kToolbarHeight,
+                  width: screenWidth,
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: primary,
+                      border: Border.all(color: Colors.black54)),
+                  child: const Center(
+                    child: Text(
+                      "LOGOUT",
+                      style:
+                      TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),

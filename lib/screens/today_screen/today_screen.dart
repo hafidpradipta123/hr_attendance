@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_attendance/model/user.dart';
+import 'package:hr_attendance/screens/today_screen/today_screen_fixed_text.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_action/slide_action.dart';
 
 import 'today_screen_checkInandOut_box.dart';
 import 'today_screen_datetime_rich_text.dart';
-import 'today_screen_fixed_text.dart';
 import 'today_screen_slider.dart';
 import 'package:geocoding/geocoding.dart';
 
